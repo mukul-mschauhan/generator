@@ -1,0 +1,403 @@
+Metadata-Version: 2.1
+Name: copulas
+Version: 0.5.1
+Summary: A python library for building different types of copulas and using them for sampling.
+Home-page: https://github.com/sdv-dev/Copulas
+Author: MIT Data To AI Lab
+Author-email: dailabmit@gmail.com
+License: MIT license
+Keywords: copulas
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.6,<3.9
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib (<4,>=3.2.0)
+Requires-Dist: numpy (<2,>=1.18.0)
+Requires-Dist: pandas (<1.1.5,>=1.0)
+Requires-Dist: scipy (<2,>=1.4.1)
+Provides-Extra: dev
+Requires-Dist: pytest (<6,>=3.4.2) ; extra == 'dev'
+Requires-Dist: pytest-cov (<3,>=2.6.0) ; extra == 'dev'
+Requires-Dist: pytest-rerunfailures (<10,>=9.0.0) ; extra == 'dev'
+Requires-Dist: rundoc (<0.5,>=0.4.3) ; extra == 'dev'
+Requires-Dist: pip (>=9.0.1) ; extra == 'dev'
+Requires-Dist: bumpversion (<0.6,>=0.5.3) ; extra == 'dev'
+Requires-Dist: watchdog (<0.11,>=0.8.3) ; extra == 'dev'
+Requires-Dist: m2r (<0.3,>=0.2.0) ; extra == 'dev'
+Requires-Dist: nbsphinx (<0.7,>=0.5.0) ; extra == 'dev'
+Requires-Dist: Sphinx (<3,>=1.7.1) ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme (<0.5,>=0.2.4) ; extra == 'dev'
+Requires-Dist: flake8 (<4,>=3.7.7) ; extra == 'dev'
+Requires-Dist: isort (<5,>=4.3.4) ; extra == 'dev'
+Requires-Dist: autoflake (<2,>=1.1) ; extra == 'dev'
+Requires-Dist: autopep8 (<2,>=1.4.3) ; extra == 'dev'
+Requires-Dist: twine (<4,>=1.10.0) ; extra == 'dev'
+Requires-Dist: wheel (>=0.30.0) ; extra == 'dev'
+Requires-Dist: coverage (<6,>=4.5.1) ; extra == 'dev'
+Requires-Dist: tox (<4,>=2.9.1) ; extra == 'dev'
+Requires-Dist: invoke ; extra == 'dev'
+Requires-Dist: doc8 (<0.9,>=0.8.0) ; extra == 'dev'
+Requires-Dist: pydocstyle (<4,>=3.0.0) ; extra == 'dev'
+Requires-Dist: tabulate (<0.9,>=0.8.3) ; extra == 'dev'
+Requires-Dist: boto3 (<1.10,>=1.7.47) ; extra == 'dev'
+Requires-Dist: docutils (<0.15,>=0.10) ; extra == 'dev'
+Requires-Dist: scikit-learn (<0.23,>=0.22) ; extra == 'dev'
+Requires-Dist: jupyter (<2,>=1.0.0) ; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: pytest (<6,>=3.4.2) ; extra == 'test'
+Requires-Dist: pytest-cov (<3,>=2.6.0) ; extra == 'test'
+Requires-Dist: pytest-rerunfailures (<10,>=9.0.0) ; extra == 'test'
+Requires-Dist: rundoc (<0.5,>=0.4.3) ; extra == 'test'
+Requires-Dist: scikit-learn (<0.23,>=0.22) ; extra == 'test'
+Requires-Dist: jupyter (<2,>=1.0.0) ; extra == 'test'
+Provides-Extra: tutorials
+Requires-Dist: scikit-learn (<0.23,>=0.22) ; extra == 'tutorials'
+Requires-Dist: jupyter (<2,>=1.0.0) ; extra == 'tutorials'
+
+<p align="left">
+  <a href="https://dai.lids.mit.edu">
+    <img alt="DAI-Lab" width=15% src="docs/images/dai-logo-white.png" onerror="this.onerror=null;this.src='_static/dai-logo-white.png';"/>
+  </a>
+  <i>An Open Source Project from the <a href="https://dai.lids.mit.edu">Data to AI Lab, at MIT</a></i>
+</p>
+
+[![Development Status](https://img.shields.io/badge/Development%20Status-2%20--%20Pre--Alpha-yellow)](https://pypi.org/search/?c=Development+Status+%3A%3A+2+-+Pre-Alpha)
+[![PyPi Shield](https://img.shields.io/pypi/v/copulas.svg)](https://pypi.python.org/pypi/copulas)
+[![Downloads](https://pepy.tech/badge/copulas)](https://pepy.tech/project/copulas)
+[![Tests](https://github.com/sdv-dev/Copulas/workflows/Run%20Tests/badge.svg)](https://github.com/sdv-dev/Copulas/actions?query=workflow%3A%22Run+Tests%22+branch%3Amaster)
+[![Coverage Status](https://codecov.io/gh/sdv-dev/Copulas/branch/master/graph/badge.svg)](https://codecov.io/gh/sdv-dev/Copulas)
+
+<img alt="Copulas" width=30% src="docs/images/copulas.png" onerror="this.onerror=null;this.src='_static/copulas.png';">
+
+# Overview
+
+* Website: https://sdv.dev
+* Documentation: https://sdv.dev/Copulas
+* Repository: https://github.com/sdv-dev/Copulas
+* License: [MIT](https://github.com/sdv-dev/Copulas/blob/master/LICENSE)
+* Development Status: [Pre-Alpha](https://pypi.org/search/?c=Development+Status+%3A%3A+2+-+Pre-Alpha)
+
+**Copulas** is a Python library for modeling multivariate distributions and sampling from them
+using [copula functions](https://en.wikipedia.org/wiki/Copula_%28probability_theory%29).
+Given a table containing numerical data, we can use Copulas to learn the distribution and
+later on generate new synthetic rows following the same statistical properties.
+
+Some of the features provided by this library include:
+
+* A variety of distributions for modeling univariate data.
+* Multiple Archimedean copulas for modeling bivariate data.
+* Gaussian and Vine copulas for modeling multivariate data.
+* Automatic selection of univariate distributions and bivariate copulas.
+
+## Supported Distributions
+
+### Univariate
+
+* Beta
+* Gamma
+* Gaussian
+* Gaussian KDE
+* Log-Laplace
+* Student T
+* Truncated Gaussian
+* Uniform
+
+### Archimedean Copulas (Bivariate)
+
+* Clayton
+* Frank
+* Gumbel
+
+### Multivariate
+
+* Gaussian Copula
+* D-Vine
+* C-Vine
+* R-Vine
+
+# Install
+
+## Requirements
+
+**Copulas** is part of the **SDV** project and is automatically installed alongside it. For
+details about this process please visit the [SDV Installation Guide](
+https://sdv.dev/SDV/getting_started/install.html)
+
+Optionally, **Copulas** can also be installed as a standalone library using the following commands:
+
+**Using `pip`:**
+
+```bash
+pip install copulas
+```
+
+**Using `conda`:**
+
+```bash
+conda install -c sdv-dev -c conda-forge copulas
+```
+
+For more installation options please visit the [Copulas installation Guide](INSTALL.md)
+
+# Quickstart
+
+In this short quickstart, we show how to model a multivariate dataset and then generate
+synthetic data that resembles it.
+
+```python3
+import warnings
+warnings.filterwarnings('ignore')
+
+from copulas.datasets import sample_trivariate_xyz
+from copulas.multivariate import GaussianMultivariate
+from copulas.visualization import compare_3d
+
+# Load a dataset with 3 columns that are not independent
+real_data = sample_trivariate_xyz()
+
+# Fit a gaussian copula to the data
+copula = GaussianMultivariate()
+copula.fit(real_data)
+
+# Sample synthetic data
+synthetic_data = copula.sample(len(real_data))
+
+# Plot the real and the synthetic data to compare
+compare_3d(real_data, synthetic_data)
+```
+
+The output will be a figure with two plots, showing what both the real and the synthetic
+data that you just generated look like:
+
+![Quickstart](docs/images/quickstart.png)
+
+
+# What's next?
+
+For more details about **Copulas** and all its possibilities and features, please check the
+[documentation site](https://sdv.dev/Copulas/).
+
+There you can learn more about [how to contribute to Copulas](https://sdv.dev/Copulas/contributing.html)
+in order to help us developing new features or cool ideas.
+
+# Credits
+
+Copulas is an open source project from the Data to AI Lab at MIT which has been built and
+maintained over the years by the following team:
+
+* Manuel Alvarez <manuel@pythiac.com>
+* Carles Sala <csala@mit.edu>
+* (Alicia) Yi Sun <yis@mit.edu>
+* José David Pérez <jose@pythiac.com>
+* Kevin Alex Zhang <kevz@mit.edu>
+* Andrew Montanez <amontane@mit.edu>
+* Gabriele Bonomi <gbonomib@gmail.com>
+* Kalyan Veeramachaneni <kalyan@csail.mit.edu>
+* Iván Ramírez <rollervan@gmail.com>
+* Felipe Alex Hofmann <fealho@gmail.com>
+* paulolimac <paulolimac@gmail.com>
+* nazar-ivantsiv <nazar.ivantsiv@gmail.com>
+
+# The Synthetic Data Vault
+
+<p>
+  <a href="https://sdv.dev">
+    <img width=30% src="https://github.com/sdv-dev/SDV/blob/master/docs/images/SDV-Logo-Color-Tagline.png?raw=true">
+  </a>
+  <p><i>This repository is part of <a href="https://sdv.dev">The Synthetic Data Vault Project</a></i></p>
+</p>
+
+* Website: https://sdv.dev
+* Documentation: https://sdv.dev/SDV
+
+
+# History
+
+## v0.5.1 - 2021-08-13
+
+This release improves performance by changing the way scipy stats is used,
+calling their methods directly without creating intermediate instances.
+
+It also fixes a bug introduced by the scipy 1.7.0 release where some
+distributions fail to fit because scipy validates the learned parameters.
+
+### Issues Closed
+ * Exception: Optimization converged to parameters that are outside the range allowed by the distribution. - Issue [#264](https://github.com/sdv-dev/Copulas/issues/264) by @csala
+ * Use scipy stats models directly without creating instances - Issue [#261](https://github.com/sdv-dev/Copulas/issues/261) by @csala
+
+## v0.5.0 - 2021-01-24
+
+This release introduces conditional sampling for the GaussianMultivariate modeling.
+The new conditioning feature allows passing a dictionary with the values to use to condition
+the rest of the columns.
+
+It also fixes a bug that prevented constant distributions to be restored from a dictionary
+and updates some dependencies.
+
+### New Features
+
+* Conditional sampling from Gaussian copula - Issue [#154](https://github.com/sdv-dev/Copulas/issues/154) by @csala
+
+### Bug Fixes
+
+* ScipyModel subclasses fail to restore constant values when using `from_dict` - Issue [#212](https://github.com/sdv-dev/Copulas/issues/212) by @csala
+
+## v0.4.0 - 2021-01-27
+
+This release introduces a few changes to optimize processing speed by re-implementing
+the Gaussian KDE pdf to use vectorized root finding methods and also adding the option
+to subsample the data during univariate selection.
+
+### General Improvements
+
+* Make `gaussian_kde` faster - Issue [#200](https://github.com/sdv-dev/Copulas/issues/200) by @k15z and @fealho
+* Use sub-sampling in `select_univariate` - Issue [#183](https://github.com/sdv-dev/Copulas/issues/183) by @csala
+
+## v0.3.3 - 2020-09-18
+
+### General Improvements
+
+* Use `corr` instead of `cov` in the GaussianMultivariate - Issue [#195](https://github.com/sdv-dev/Copulas/issues/195) by @rollervan
+* Add arguments to GaussianKDE - Issue [#181](https://github.com/sdv-dev/Copulas/issues/181) by @rollervan
+
+### New Features
+
+* Log Laplace Distribution - Issue [#188](https://github.com/sdv-dev/Copulas/issues/188) by @rollervan
+
+## v0.3.2 - 2020-08-08
+
+### General Improvements
+
+* Support Python 3.8 - Issue [#185](https://github.com/sdv-dev/Copulas/issues/185) by @csala
+* Support scipy >1.3 - Issue [#180](https://github.com/sdv-dev/Copulas/issues/180) by @csala
+
+### New Features
+
+* Add Uniform Univariate - Issue [#179](https://github.com/sdv-dev/Copulas/issues/179) by @rollervan
+
+## v0.3.1 - 2020-07-09
+
+### General Improvements
+
+* Raise numpy version upper bound to 2 - Issue [#178](https://github.com/sdv-dev/Copulas/issues/178) by @csala
+
+### New Features
+
+* Add Student T Univariate - Issue [#172](https://github.com/sdv-dev/Copulas/issues/172) by @gbonomib
+
+### Bug Fixes
+
+* Error in Quickstarts : Unknown projection '3d' - Issue [#174](https://github.com/sdv-dev/Copulas/issues/174) by @csala
+
+## v0.3.0 - 2020-03-27
+
+Important revamp of the internal implementation of the project, the testing
+infrastructure and the documentation by Kevin Alex Zhang @k15z, Carles Sala
+@csala and Kalyan Veeramachaneni @kveerama
+
+### Enhancements
+
+* Reimplementation of the existing Univariate distributions.
+* Addition of new Beta and Gamma Univariates.
+* New Univariate API with automatic selection of the optimal distribution.
+* Several improvements and fixes on the Bivariate and Multivariate Copulas implementation.
+* New visualization module with simple plotting patterns to visualize probability distributions.
+* New datasets module with toy datasets sampling functions.
+* New testing infrastructure with end-to-end, numerical and large scale testing.
+* Improved tutorials and documentation.
+
+## v0.2.5 - 2020-01-17
+
+### General Improvements
+
+* Convert import_object to get_instance - Issue [#114](https://github.com/sdv-dev/Copulas/issues/114) by @JDTheRipperPC
+
+## v0.2.4 - 2019-12-23
+
+### New Features
+
+* Allow creating copula classes directly - Issue [#117](https://github.com/sdv-dev/Copulas/issues/117) by @csala
+
+### General Improvements
+
+* Remove `select_copula` from `Bivariate` - Issue [#118](https://github.com/sdv-dev/Copulas/issues/118) by @csala
+* Rename TruncNorm to TruncGaussian and make it non standard - Issue [#102](https://github.com/sdv-dev/Copulas/issues/102) by @csala @JDTheRipperPC
+
+### Bugs fixed
+
+* Error on Frank and Gumble sampling - Issue [#112](https://github.com/sdv-dev/Copulas/issues/112) by @csala
+
+## v0.2.3 - 2019-09-17
+
+### New Features
+
+* Add support to Python 3.7 - Issue [#53](https://github.com/sdv-dev/Copulas/issues/53) by @JDTheRipperPC
+
+### General Improvements
+
+* Document RELEASE workflow - Issue [#105](https://github.com/sdv-dev/Copulas/issues/105) by @JDTheRipperPC
+* Improve serialization of univariate distributions - Issue [#99](https://github.com/sdv-dev/Copulas/issues/99) by @ManuelAlvarezC and @JDTheRipperPC
+
+### Bugs fixed
+
+* The method 'select_copula' of Bivariate return wrong CopulaType - Issue [#101](https://github.com/sdv-dev/Copulas/issues/101) by @JDTheRipperPC
+
+## v0.2.2 - 2019-07-31
+
+### New Features
+
+* `truncnorm` distribution and a generic wrapper for `scipy.rv_continous` distributions - Issue [#27](https://github.com/sdv-dev/Copulas/issues/27) by @amontanez, @csala and @ManuelAlvarezC
+* `Independence` bivariate copulas - Issue [#46](https://github.com/sdv-dev/Copulas/issues/46) by @aliciasun, @csala and @ManuelAlvarezC
+* Option to select seed on random number generator - Issue [#63](https://github.com/sdv-dev/Copulas/issues/63) by @echo66 and @ManuelAlvarezC
+* Option on Vine copulas to select number of rows to sample - Issue [#77](https://github.com/sdv-dev/Copulas/issues/77) by @ManuelAlvarezC
+* Make copulas accept both scalars and arrays as arguments - Issues [#85](https://github.com/sdv-dev/Copulas/issues/85) and [#90](https://github.com/sdv-dev/Copulas/issues/90) by @ManuelAlvarezC
+
+### General Improvements
+
+* Ability to properly handle constant data - Issues [#57](https://github.com/sdv-dev/Copulas/issues/57) and [#82](https://github.com/sdv-dev/Copulas/issues/82) by @csala and @ManuelAlvarezC
+* Tests for analytics properties of copulas - Issue [#61](https://github.com/sdv-dev/Copulas/issues/61) by @ManuelAlvarezC
+* Improved documentation - Issue [#96](https://github.com/sdv-dev/Copulas/issues/96) by @ManuelAlvarezC
+
+### Bugs fixed
+
+* Fix bug on Vine copulas, that made it crash during the bivariate copula selection - Issue [#64](https://github.com/sdv-dev/Copulas/issues/64) by @echo66 and @ManuelAlvarezC
+
+## v0.2.1 - Vine serialization
+
+* Add serialization to Vine copulas.
+* Add `distribution` as argument for the Gaussian Copula.
+* Improve Bivariate Copulas code structure to remove code duplication.
+* Fix bug in Vine Copulas sampling: 'Edge' object has no attribute 'index'
+* Improve code documentation.
+* Improve code style and linting tools configuration.
+
+## v0.2.0 - Unified API
+
+* New API for stats methods.
+* Standarize input and output to `numpy.ndarray`.
+* Increase unittest coverage to 90%.
+* Add methods to load/save copulas.
+* Improve Gaussian copula sampling accuracy.
+
+## v0.1.1 - Minor Improvements
+
+* Different Copula types separated in subclasses
+* Extensive Unit Testing
+* More pythonic names in the public API.
+* Stop using third party elements that will be deprected soon.
+* Add methods to sample new data on bivariate copulas.
+* New KDE Univariate copula
+* Improved examples with additional demo data.
+
+## v0.1.0 - First Release
+
+* First release on PyPI.
+
+
