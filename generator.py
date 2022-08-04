@@ -61,7 +61,7 @@ if uploaded_file is not None:
     # Synthetic Data SelecBox
     select_yes = st.sidebar.selectbox(label="Do you Want to Generate Synthetic Data", 
                          options = ["Yes", "No"])
-    gan_input = st.sidebar.number_input("Enter the Sample Count for GAN", min_value = 0, max_value=1000)
+    gan_input = st.sidebar.number_input("Enter the Sample Count for GAN", min_value = 0, max_value=100000)
         
       
   
@@ -140,14 +140,14 @@ if uploaded_file is not None:
     pressed = st.sidebar.button("Prep the Data ⛏️", True)
     if pressed:
         #callable(newdf) # Function returns true/false
-        if (df.shape[0]<1000 and select_yes=="Yes"):
+        if select_yes=="Yes":
             mymodel = CTGAN() 
             mymodel.fit(df)
             sampledata = mymodel.sample(gan_input)
             newdf = na_vals(sampledata, colname, missingval_slider)
             
         else:
-            st.info("Cannot Generate More Samples as the Shape is Greater than 1000 Obs")
+            #st.info("Cannot Generate More Samples as the Shape is Greater than 1000 Obs")
             newdf = na_vals(df, colname, missingval_slider)
         
         #newdf = na_vals(sampledata, colname, missingval_slider)
